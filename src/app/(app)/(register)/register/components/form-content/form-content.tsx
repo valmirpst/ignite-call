@@ -1,5 +1,6 @@
 'use client';
 
+import { registerUser } from '@/actions/register';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Text, TextInput } from '@unimake-ui/react';
 import { MoveRight } from 'lucide-react';
@@ -34,13 +35,21 @@ export default function FormContent() {
   const searchParams = useSearchParams();
 
   async function handleRegisterSubmit(data: RegisterFormData) {
-    const { name, username } = data;
-    console.log(name, username);
+    // Criar cookies para nao perder as informacoes ate aqui se o usuario ja digitou
+
+    const response = await registerUser({
+      name: data.name,
+      username: data.username,
+    });
+
+    if (!response.ok) alert(response.message);
+
+    console.log(response);
   }
 
   useEffect(() => {
     const username = searchParams.get('username');
-    console.log(username);
+
     if (username) {
       setValue('username', username);
     }

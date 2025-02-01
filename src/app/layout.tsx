@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Providers from '../lib/providers';
-import './styles/globals.css';
+import ContextsProvider from '../contexts/contexts-provider';
 
 export const metadata: Metadata = {
   title: 'Ignite Call - Valmir Paiva Stachin',
@@ -14,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <Providers>{children}</Providers>
+      <ContextsProvider>{children}</ContextsProvider>
     </html>
   );
 }

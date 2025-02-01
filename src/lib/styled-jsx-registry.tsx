@@ -1,21 +1,21 @@
 'use client';
 
+import '@/app/styles/globals.css';
 import { useServerInsertedHTML } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 export default function StyledJsxRegistry({ children }: { children: React.ReactNode }) {
-  // Only create stylesheet once with lazy initial state
-  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useServerInsertedHTML(() => {
-    const styles = styledComponentsStyleSheet.getStyleElement();
-    styledComponentsStyleSheet.instance.clearTag();
-    return <>{styles}</>;
+    return <>{styledComponentsStyleSheet.getStyleElement()}</>;
   });
 
-  if (typeof window !== 'undefined') return <>{children}</>;
-
-  return <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>;
+  return isClient ? children : <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>;
 }
