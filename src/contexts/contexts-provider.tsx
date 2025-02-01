@@ -1,5 +1,7 @@
 import { Body } from '@/app/styles/globals';
+import '@/app/styles/globals.css';
 import { sourceSans3 } from '@/lib/fonts';
+
 import StyledJsxRegistry from '@/lib/styled-jsx-registry';
 import { darkTheme, ThemeProvider } from '@unimake-ui/react';
 import { ReactNode } from 'react';

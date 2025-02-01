@@ -1,6 +1,5 @@
 'use client';
 
-import '@/app/styles/globals.css';
 import { useServerInsertedHTML } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
